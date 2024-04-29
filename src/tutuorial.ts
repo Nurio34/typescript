@@ -4,7 +4,7 @@ str = str.toUpperCase();
 str = true;
 
 //!---------------
-let nick: "nuri" | "salih" | "ersoy" = "nuri";
+let nick: "nuri" | "salih" | "ersoy" = "salazar";
 nick = "ersoy";
 nick = "pirate";
 
@@ -56,14 +56,15 @@ let pen1 = { title: "pen", cost: 10 };
 let phone1 = { cost: 2000, brand: "ıphone" };
 let book1 = { title: "pen", cost: 20, name: "Guide of Galaxy Hitchhokers" };
 
-let arr1: { title?: string; cost: number }[] = [pen, phone, book];
+let arr1: { title?: string; cost: number }[] = [pen1, phone1, book1];
 
 let arr_readOnly: { readonly title?: string; cost: number }[] = [
-    pen,
-    phone,
-    book,
+    pen1,
+    phone1,
+    book1,
 ];
 arr_readOnly[0].title = "pencil";
+arr_readOnly[0].cost = 100;
 
 //!---------------------
 const calcDiscount = (price: number, hasDiscount: boolean): number | string =>
@@ -78,6 +79,9 @@ const isInChars = (char: string): boolean => {
 //!--------------
 const calcDisc = (price: number, discount?: number): number => {
     return price - (discount || 0);
+};
+const calcDisc2 = (price: number, discount: number = 20): number => {
+    return price - discount;
 };
 
 //!----------
@@ -164,7 +168,10 @@ interface Book {
     printMsg(msg: Message): string;
 }
 
-type DiscountedBook = Book & { discount: number; printDiscount(): string };
+type DiscountedBook = Book & {
+    discount: number;
+    printDiscount(): string;
+};
 
 const Imposible: Book = {
     isbn: 1,
@@ -200,4 +207,125 @@ const Earth: DiscountedBook = {
     },
 };
 
-console.log(Earth.printDiscount());
+//! --------- CHALLANGE ----------
+
+interface Computer {
+    readonly id: number;
+    brand: string;
+    ram: number;
+    storage?: number;
+    uprageRam(): number;
+}
+
+const Mac24Pro: Computer = {
+    id: 1,
+    brand: "Apple",
+    ram: 8,
+    uprageRam: function name() {
+        return this.ram * 2;
+    },
+};
+
+//! ----------
+
+interface Person {
+    name: string;
+    age: number;
+    getDetails(): string;
+}
+interface DogOwner {
+    dogName: string;
+    getDogDetails(): string;
+}
+
+const Nuri1: Person = {
+    name: "Nuri",
+    age: 31,
+    getDetails() {
+        return `The name is ${this.name} and age is ${this.age}`;
+    },
+};
+
+interface Employee1 extends Person {
+    workID: number;
+    department: string;
+    getWorkDetail(): string;
+}
+
+const Emine1: Employee1 = {
+    name: "Emine",
+    age: 31,
+    workID: 1,
+    department: "sales",
+    getDetails() {
+        return `The name is ${this.name} and age is ${this.age}`;
+    },
+    getWorkDetail() {
+        return `${this.name}'s work id is ${this.workID}`;
+    },
+};
+
+interface Menager1 extends Employee1 {
+    menage(): void;
+}
+
+const Ahmet1: Menager1 = {
+    name: "Ahmet",
+    age: 31,
+    workID: 1,
+    department: "boss",
+    getDetails() {
+        return `The name is ${this.name} and age is ${this.age}`;
+    },
+    getWorkDetail() {
+        return `${this.name}'s work id is ${this.workID}`;
+    },
+    menage() {
+        return "Menaging";
+    },
+};
+
+//! -------------- CHALLANGE -------------
+
+const getEmployee = (): Person1 | DogOwner1 | Menager1 => {
+    const random = Math.random();
+
+    return random < 0.33
+        ? { name: "nuri" }
+        : random < 0.66
+        ? { name: "nuri", dogname: "rix" }
+        : {
+              name: "nuri",
+              dogname: "rix",
+              menagePeople: () => console.log("Menaging people..."),
+              delegateTasks: () => console.log("Delegating tasks..."),
+          };
+};
+
+interface Person1 {
+    name: string;
+}
+
+interface DogOwner1 extends Person1 {
+    dogname: string;
+}
+
+interface Menager1 extends Person1 {
+    menagePeople(): void;
+    delegateTasks(): void;
+}
+
+const employee1 = getEmployee();
+
+const isMenager = (
+    employee: Person1 | DogOwner1 | Menager1,
+): employee is Menager1 => {
+    return "menagePeople" in employee;
+};
+
+if (isMenager(employee1)) {
+    employee1.delegateTasks();
+}
+
+//!---------------
+let strLength: number = ("value" as string).length;
