@@ -1,4 +1,10 @@
 import { z } from "zod";
+import * as _ from "lodash";
+const cloned = _.cloneDeep("value");
+
+console.log(cloned);
+
+//! --------------------------
 
 const productsURL = "https://dummyjson.com/products";
 
@@ -54,4 +60,4 @@ products.map((product) => {
     return product.brand;
 });
 
-console.log(document.fullscreen);
+//! -------------------------------------
