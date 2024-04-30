@@ -1,3 +1,5 @@
+export {};
+
 //!---------------
 let str = "nurio34";
 str = str.toUpperCase();
@@ -297,8 +299,8 @@ const getEmployee = (): Person1 | DogOwner1 | Menager1 => {
         : {
               name: "nuri",
               dogname: "rix",
-              menagePeople: () => console.log("Menaging people..."),
-              delegateTasks: () => console.log("Delegating tasks..."),
+              menagePeople: () => "Menaging people...",
+              delegateTasks: () => "Delegating tasks...",
           };
 };
 
@@ -328,4 +330,148 @@ if (isMenager(employee1)) {
 }
 
 //!---------------
-let strLength: number = ("value" as string).length;
+let someValue = "value";
+let strLength: number = (someValue as string).length;
+
+//! --------------------
+
+interface Student {
+    name: string;
+    study(): void;
+}
+
+interface Employee2 {
+    name: string;
+    work(): void;
+}
+
+type Person2 = Student | Employee2;
+
+const createPerson = (): Person2 => {
+    const random = Math.random();
+
+    return random < 0.5
+        ? { name: "Nuri", study: () => "studying.." }
+        : { name: "Emine", work: () => "Working..." };
+};
+
+const randomPerson = createPerson();
+
+const isStudent = (person: Person2): person is Student => {
+    return "study" in person;
+};
+
+if (isStudent(randomPerson)) {
+    randomPerson.study();
+}
+
+//!-------------------------
+
+interface State {
+    name: string;
+    amount: number;
+    timestamp: number;
+}
+
+interface Increment extends State {
+    type: "increment";
+}
+interface Decrement extends State {
+    type: "decrement";
+}
+// interface Multiplication extends State {
+//     type: "multiplication";
+// }
+
+type Action = Increment | Decrement;
+
+const reduce = (state: number, action: Action): number => {
+    const amount = action.amount;
+    let newState: number;
+    switch (action.type) {
+        case "increment":
+            newState = state + amount;
+            break;
+
+        case "decrement":
+            newState = state - amount;
+            break;
+
+        default:
+            const unexpectedAction = action;
+            throw new Error("There is unhandled action...");
+    }
+    return newState;
+};
+
+const nuriAction: Increment = {
+    type: "increment",
+    name: "Nuri",
+    amount: 1,
+    timestamp: new Date().getMilliseconds(),
+};
+
+reduce(1, nuriAction);
+
+//!----------------------- GENERICS -----------------
+
+function createArray<T>(length: number, value: T): Array<T> {
+    return Array(length).fill(value);
+}
+
+createArray<string>(3, "hello");
+createArray<number>(3, 2);
+
+//! --------------------
+
+function example<T extends number, U>(param1: T, param2: U): [T, U] {
+    return [param1, param2];
+}
+
+example("3", "hey");
+
+//!-------------- HTTP -------------------
+
+const productsURL = "https://dummyjson.com/products";
+
+interface Product {
+    id: number;
+    title: string;
+    description: string;
+    price: number;
+    discountPercentage: number;
+    rating: number;
+    stock: number;
+    brand: string;
+    category: string;
+    thumbnail: string;
+    images: string[];
+}
+
+async function fetchProducts(url: string): Promise<Product[]> {
+    try {
+        const response = await fetch(url);
+
+        if (!response.ok) {
+            throw new Error(
+                `Nothing found in this route, Status : ${response.status}`,
+            );
+        }
+
+        const data = await response.json();
+        const products: Product[] = data.products;
+        return products;
+    } catch (error) {
+        const errorMsg =
+            error instanceof Error ? error.message : "There is a network error";
+        console.log(errorMsg);
+
+        return [];
+    }
+}
+
+const products = await fetchProducts(productsURL);
+
+products.map((product) => {
+    return product;
+});
