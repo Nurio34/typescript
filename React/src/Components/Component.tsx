@@ -1,75 +1,67 @@
-//! ----------------------------------------------
-
-import { useState } from "react";
-
-type User = {
-    name: string;
-    id: number;
-};
+import { useEffect, useState } from "react";
+import { RotatingLines } from "react-loader-spinner";
+import { productSchema, type Product } from "../types";
 
 export const Component = () => {
-    const [name, setName] = useState("");
-    const [id, setId] = useState(NaN);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [data, setData] = useState<Product[]>([]);
+    const [error, setError] = useState<string | null>(null);
 
-    const storedUser = localStorage.getItem("user");
-    const user = storedUser ? JSON.parse(storedUser) : {};
+    async function fetchProducts() {
+        try {
+            setIsLoading(true);
+            const response = await fetch("https://dummyjson.com/product");
 
-    function handleName(e: React.ChangeEvent<HTMLInputElement>): void {
-        setName(e.target.value);
+            if (!response.ok) {
+                throw new Error("Failed to fetch Products");
+            }
+
+            const data = await response.json();
+            const rawProducts: Product[] = data.products;
+
+            const result = productSchema.array().parse(rawProducts);
+            if (!result.success) {
+                throw new Error("Types doesnt match with your productSchema");
+            }
+            setData(result.data);
+
+            console.log(result);
+        } catch (error) {
+            const msg =
+                error instanceof Error ? error.message : "Network error...";
+            setError(msg);
+        } finally {
+            setIsLoading(false);
+        }
     }
 
-    function handleID(e: React.ChangeEvent<HTMLInputElement>): void {
-        setId(Number(e.target.value));
+    useEffect(() => {
+        fetchProducts();
+    }, []);
+
+    if (isLoading) {
+        return (
+            <RotatingLines
+                visible={true}
+                height="96"
+                width="96"
+                color="grey"
+                strokeWidth="5"
+                animationDuration="0.75"
+                ariaLabel="rotating-lines-loading"
+                wrapperStyle={{}}
+                wrapperClass=""
+            />
+        );
+    } else if (error) {
+        return <div>{error}</div>;
+    } else {
+        return (
+            <div>
+                {data?.map((product) => {
+                    return <p key={product.id}>{product.brand}</p>;
+                })}
+            </div>
+        );
     }
-
-    function handleSubmit(e: React.FormEvent<HTMLFormElement>): void {
-        e.preventDefault();
-        const user: User = {
-            name,
-            id,
-        };
-        localStorage.setItem("user", JSON.stringify(user));
-    }
-
-    return (
-        <>
-            <form
-                className=" bg-orange-50 grid m-4 p-4 gap-4"
-                onSubmit={handleSubmit}
-            >
-                <input
-                    type="text"
-                    name="name"
-                    id="name"
-                    placeholder="Name..."
-                    className="border border-black p-1"
-                    onChange={handleName}
-                    value={name}
-                />
-                <input
-                    type="number"
-                    name="id"
-                    id="id"
-                    placeholder="ID..."
-                    className="border border-black p-1"
-                    onChange={handleID}
-                    value={id}
-                />
-                <button
-                    type="submit"
-                    className=" py-1 px-4 bg-orange-500 text-white "
-                >
-                    Submit
-                </button>
-            </form>
-
-            {"name" in user && (
-                <section>
-                    <h1>User</h1>
-                    <p>User : {user.name}</p>
-                    <p>ID : {user.id} </p>
-                </section>
-            )}
-        </>
-    );
 };

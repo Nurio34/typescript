@@ -1,10 +1,11 @@
 import { Component } from "./Components/Component";
+import GlobalApp from "./GlobalApp";
 
 function App() {
     return (
-        <div className={`App`}>
+        <>
             <Component />
-        </div>
+        </>
     );
 }
 
