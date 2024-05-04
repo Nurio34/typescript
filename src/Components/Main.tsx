@@ -1,17 +1,14 @@
-import { Route, Routes, useLocation } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import TodoApp from "../Projects/TodoApp";
 
 function Main() {
-    const location = useLocation();
-    console.log(location);
-
     const pages = [
         {
-            path: "",
-            element: <p>HomePage</p>,
+            path: "/typescript-basics",
+            element: <p>Hello from HomePage</p>,
         },
         {
-            path: "todo",
+            path: "/typescript-basics/todo",
             element: <TodoApp />,
         },
     ];

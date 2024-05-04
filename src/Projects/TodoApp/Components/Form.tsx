@@ -37,7 +37,6 @@ function Form() {
     function handleEditTodo(id: number): void {
         setIsEditing(true);
         setEditedTodoId(id);
-        console.log("Edit mode on");
         const todo = todos.filter((todo) => todo.id === id)[0].todo;
         InputElement.current?.focus();
         setTodo(todo);
