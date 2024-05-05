@@ -6,7 +6,6 @@ function loadTodos(): Todo[] | [] {
     return localTodos ? JSON.parse(localTodos) : [];
 }
 
-// const initialState = loadTodos();
 const initialState: Todo[] = loadTodos();
 
 export const todoSlice = createSlice({

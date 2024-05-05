@@ -1,11 +1,13 @@
-import "./App.css";
+import "./App.scss";
 import Footer from "./Components/Footer";
-import Main from "./Components/Main";
+import Container from "./Components/Container";
+import SignInForm from "./Components/SignInForm";
 function App() {
     return (
         <>
-            <Main />
+            <Container />
             <Footer />
+            <SignInForm />
         </>
     );
 }

@@ -38,8 +38,8 @@ function Form() {
         setIsEditing(true);
         setEditedTodoId(id);
         const todo = todos.filter((todo) => todo.id === id)[0].todo;
-        InputElement.current?.focus();
         setTodo(todo);
+        InputElement.current?.focus();
     }
 
     return (

@@ -1,16 +1,12 @@
-import Form from "./Components/Form";
+import Header from "./Components/Header";
+import Main from "./Components/Main";
 
 function TodoApp() {
     return (
-        <section className=" min-h-screen  ">
-            <h1
-                className="font-bold text-2xl capitalize text-center p-4"
-                style={{ fontVariant: "small-caps" }}
-            >
-                todo app
-            </h1>
-            <Form />
-        </section>
+        <>
+            <Header />
+            <Main />
+        </>
     );
 }
 
