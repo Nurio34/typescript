@@ -8,8 +8,8 @@ const projects = [
     },
     {
         id: 2,
-        path: "todo",
-        name: "TodoApp",
+        path: "multistepform",
+        name: "Multistep_Form",
     },
 ];
 

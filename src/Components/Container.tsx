@@ -1,15 +1,16 @@
 import { Route, Routes } from "react-router-dom";
-import TodoApp from "../Projects/TodoApp";
+import HomePage from "../Projects/HomePage";
+import MultistepForm from "../Projects/MultistepForm";
 
 function Main() {
     const pages = [
         {
             path: "/typescript-basics",
-            element: <p>Hello from HomePage</p>,
+            element: <HomePage />,
         },
         {
-            path: "/typescript-basics/todo",
-            element: <TodoApp />,
+            path: "/typescript-basics/multistepform",
+            element: <MultistepForm />,
         },
     ];
 
