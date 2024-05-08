@@ -8,8 +8,8 @@ const projects = [
     },
     {
         id: 2,
-        path: "multistepform",
-        name: "Multistep_Form",
+        path: "hangman",
+        name: "Hangman",
     },
 ];
 

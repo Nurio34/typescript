@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import HomePage from "../Projects/HomePage";
-import MultistepForm from "../Projects/MultistepForm";
+import Hangman from "../Projects/Hangman";
 
 function Main() {
     const pages = [
@@ -9,8 +9,8 @@ function Main() {
             element: <HomePage />,
         },
         {
-            path: "/typescript-basics/multistepform",
-            element: <MultistepForm />,
+            path: "/typescript-basics/hangman",
+            element: <Hangman />,
         },
     ];
 

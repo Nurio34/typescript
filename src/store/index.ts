@@ -1,7 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
+import hangmanReducer from "./slices/hangman";
 
 export const store = configureStore({
-    reducer: {},
+    reducer: {
+        hangman: hangmanReducer,
+    },
 });
 
 export type RootState = ReturnType<typeof store.getState>;

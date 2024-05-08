@@ -17,33 +17,14 @@ export type SignUpType = z.infer<typeof SignUpSchema>;
 
 //! -----------------
 
-//! "SIGN IN" validation
-export const SignInSchema = z.object({
-    username: z.string().min(5).trim(),
-    password: z.string().trim(),
-});
-export type SignInType = z.infer<typeof SignInSchema>;
+//! "HANGMAN" type
+
+export type Hangman = {
+    word: string;
+    charsToGuess: string[];
+    partsDisplaying: string[];
+    isGameOver: boolean;
+    isWin: boolean;
+};
 
 //! -----------------
-
-//! "USER" validation
-export type User = {
-    username: string;
-};
-//! -------------
-
-//! "TODO" validation
-export type Todo = {
-    token: string;
-    id: number;
-    todo: string;
-    completed: boolean;
-};
-//! -------------
-
-//! "APP" validation
-export type App = {
-    user: SignUpType;
-};
-
-//! -----------
