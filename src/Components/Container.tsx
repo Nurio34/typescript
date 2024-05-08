@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import HomePage from "../Projects/HomePage";
 import Hangman from "../Projects/Hangman";
+import NoteApp from "../Projects/NoteApp";
 
 function Main() {
     const pages = [
@@ -12,10 +13,14 @@ function Main() {
             path: "/typescript-basics/hangman",
             element: <Hangman />,
         },
+        {
+            path: "/typescript-basics/notes/*",
+            element: <NoteApp />,
+        },
     ];
 
     return (
-        <div className="Container min-h-screen bg-orange-100  pb-0 p-4 ">
+        <div className="Container min-h-screen pb-0 p-4 ">
             <Routes>
                 {pages.map((page) => {
                     return (
