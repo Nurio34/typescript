@@ -3,7 +3,7 @@ import { useAppSelector } from "../../../../Store/hooks";
 function Word() {
     const { word, charsToGuess, isGameOver } = useAppSelector((s) => s.hangman);
 
-    const chars = word.split("");
+    const chars = word.split("").filter((ch) => ch !== " ");
 
     return (
         <section className="Word flex gap-2 py-8 justify-center">
