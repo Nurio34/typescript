@@ -1,7 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import HomePage from "../Projects/HomePage";
 import Hangman from "../Projects/Hangman";
-import NoteApp from "../Projects/NoteApp";
 
 function Main() {
     const pages = [
@@ -12,10 +11,6 @@ function Main() {
         {
             path: "/typescript-basics/hangman",
             element: <Hangman />,
-        },
-        {
-            path: "/typescript-basics/notes/*",
-            element: <NoteApp />,
         },
     ];
 

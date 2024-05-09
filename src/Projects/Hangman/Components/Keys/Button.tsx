@@ -17,7 +17,7 @@ function Button({
             if (ButtonEl.current) {
                 ButtonEl.current.disabled = false;
                 ButtonEl.current.style.backgroundColor = "rgb(243, 244, 246)";
-                ButtonEl.current.style.color = "white";
+                ButtonEl.current.style.color = "black";
                 ButtonEl.current.style.outline = "2px solid white";
             }
         }

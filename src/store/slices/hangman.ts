@@ -57,7 +57,6 @@ export const hangman = createSlice({
 
             state.word = word;
             state.charsToGuess = word.split("").filter((ch) => ch !== " ");
-            console.log("retare");
 
             //** */
             (state.partsDisplaying = []),

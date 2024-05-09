@@ -11,11 +11,6 @@ const projects = [
         path: "hangman",
         name: "Hangman",
     },
-    {
-        id: 3,
-        path: "notes",
-        name: "NoteApp",
-    },
 ];
 
 function Footer() {
